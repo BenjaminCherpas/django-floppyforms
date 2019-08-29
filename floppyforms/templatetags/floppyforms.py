@@ -47,7 +47,7 @@ def raise_or_not_variable_does_not_exist_compat_version(context):
     """
     if django.VERSION < (1, 8):
         if settings.TEMPLATE_DEBUG:
-            raise
+             Exception('')
         else:
             return ''
 
@@ -55,7 +55,7 @@ def raise_or_not_variable_does_not_exist_compat_version(context):
         from django.template.engine import Engine
         template_debug_value = getattr(settings, 'TEMPLATE_DEBUG', None)
         if template_debug_value:
-            raise
+            raise Exception('')
         if not template_debug_value:
             return ''
         if template_debug_value is None:
@@ -64,7 +64,7 @@ def raise_or_not_variable_does_not_exist_compat_version(context):
             except AttributeError:
                 engine = Engine.get_default()
             if engine.debug:
-                raise
+                raise Exception()
             return ''
 
     if django.VERSION >= (1, 10):
@@ -74,11 +74,11 @@ def raise_or_not_variable_does_not_exist_compat_version(context):
         except AttributeError:
             engine = Engine.get_default()
         if engine.debug:
-            raise
+            raise Exception()
 
         return ''
 
-    raise
+    raise Exception()
 
 
 class ConfigFilter(object):
